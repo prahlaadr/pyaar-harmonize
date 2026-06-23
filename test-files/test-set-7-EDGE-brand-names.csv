@@ -1,0 +1,19 @@
+START,STOP,PATIENT,PAYER,ENCOUNTER,CODE,DESCRIPTION,BASE_COST,PAYER_COVERAGE,DISPENSES,TOTALCOST,REASONCODE,REASONDESCRIPTION
+2018-01-15,,p1,Medicare,e1,code1,insulin human  isophane 70 UNT/ML / Regular Insulin  Human 30 UNT/ML Injectable Suspension [Humulin],98.00,78.40,3,294.00,44054006,Diabetes
+2018-02-20,,p2,UnitedHealthcare,e2,code2,Insulin Lispro 100 UNT/ML Injectable Solution [Humalog],102.50,82.00,3,307.50,44054006,Type 2 Diabetes
+2018-03-12,,p3,Aetna,e3,code3,1 ML Epoetin Alfa 4000 UNT/ML Injection [Epogen],520.00,416.00,2,1040.00,271737000,Anemia
+2018-04-08,,p4,Blue Cross,e4,code4,24 HR metoprolol succinate 100 MG Extended Release Oral Tablet [Toprol],45.00,36.00,6,270.00,38341003,Hypertension
+2018-05-15,,p5,Cigna,e5,code5,Carbamazepine[Tegretol],28.00,22.40,3,84.00,84757009,Epilepsy
+2018-06-22,,p6,Medicare,e6,code6,Mestranol / Norethynodrel [Enovid],55.00,44.00,3,165.00,,Birth control
+2019-01-10,,p7,UnitedHealthcare,e7,code7,insulin human  isophane 70 UNT/ML [Humulin],88.00,70.40,3,264.00,44054006,Diabetes
+2019-02-14,,p8,Aetna,e8,code8,Humalog KwikPen 100 units/mL,105.00,84.00,3,315.00,44054006,Type 1 Diabetes
+2019-03-20,,p9,Blue Cross,e9,code9,Epogen 4000 units/mL,540.00,432.00,2,1080.00,271737000,Chronic kidney disease
+2019-04-25,,p10,Cigna,e10,code10,Toprol-XL 100mg,48.00,38.40,6,288.00,38341003,Hypertension
+2019-05-30,,p11,Medicare,e11,code11,Tegretol 200mg,30.00,24.00,3,90.00,84757009,Seizure disorder
+2019-07-15,,p12,UnitedHealthcare,e12,code12,Humulin 70/30 vial,92.00,73.60,3,276.00,44054006,Diabetes mellitus
+2019-08-20,,p13,Aetna,e13,code13,Humalog Junior KwikPen,108.00,86.40,3,324.00,44054006,Pediatric diabetes
+2019-09-12,,p14,Blue Cross,e14,code14,Procrit (epoetin alfa) 10000 units/mL,680.00,544.00,2,1360.00,271737000,Chemotherapy-induced anemia
+2019-10-18,,p15,Cigna,e15,code15,Toprol XL 50 mg extended-release,42.00,33.60,6,252.00,38341003,Heart failure
+2019-11-22,,p16,Medicare,e16,code16,Tegretol-XR 200 mg,35.00,28.00,3,105.00,84757009,Trigeminal neuralgia
+2019-12-28,,p17,UnitedHealthcare,e17,code17,insulin isophane human recombinant [Humulin N],85.00,68.00,3,255.00,44054006,Type 2 diabetes
+2020-01-15,,p18,Aetna,e18,code18,Lispro insulin [Humalog] 100 units/mL cartridge,110.00,88.00,3,330.00,44054006,Diabetes type 1

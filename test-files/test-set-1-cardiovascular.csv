@@ -1,0 +1,16 @@
+START,STOP,PATIENT,PAYER,ENCOUNTER,CODE,DESCRIPTION,BASE_COST,PAYER_COVERAGE,DISPENSES,TOTALCOST,REASONCODE,REASONDESCRIPTION
+2024-01-05T09:00:00Z,,P-4f8a2c1d,Medicare,E-001,849574,Simvastatin 20 MG Oral Tablet,12.50,10.00,6,75.00,13644009,Hyperlipidemia
+2024-01-08T10:30:00Z,,P-7b3e9f2a,UnitedHealthcare,E-002,314076,Lisinopril 10 MG Oral Tablet,8.25,6.60,12,99.00,38341003,Hypertension
+2024-01-12T14:15:00Z,,P-2c5d8e1f,Aetna,E-003,617318,Atorvastatin 20 MG Oral Tablet,22.00,17.60,3,66.00,13644009,Hyperlipidemia
+2024-01-15T08:45:00Z,,P-9e6a4b7c,Blue Cross,E-004,308971,Amlodipine 5 MG Oral Tablet,11.00,8.80,12,132.00,38341003,Hypertension
+2024-01-18T11:00:00Z,,P-3d7f1c8e,Cigna,E-005,205923,Warfarin Sodium 5 MG Oral Tablet,14.25,11.40,12,171.00,49436004,Atrial fibrillation
+2024-01-22T09:30:00Z,,P-6b9e2a4d,Medicare,E-006,316672,Metoprolol Tartrate 50 MG Oral Tablet,9.75,7.80,6,58.50,38341003,Hypertension
+2024-01-25T13:20:00Z,,P-8c1f5e7a,UnitedHealthcare,E-007,200031,Clopidogrel 75 MG Oral Tablet,45.00,36.00,3,135.00,414545008,Ischemic heart disease
+2024-01-28T10:15:00Z,,P-4e9a3c6b,Aetna,E-008,197361,LIPITOR 20mg,24.50,19.60,6,147.00,13644009,Hyperlipidemia
+2024-02-01T15:45:00Z,,P-7d2b8f1c,Blue Cross,E-009,1202906,Losartan Potassium 50 MG Oral Tablet,13.00,10.40,12,156.00,38341003,Hypertension
+2024-02-05T08:30:00Z,,P-5f8c9e2a,Cigna,E-010,834060,Carvedilol 12.5 MG Oral Tablet,16.50,13.20,6,99.00,84114007,Heart failure
+2024-02-08T11:45:00Z,,P-2a6d4b9e,Medicare,E-011,197904,simvastatin,11.00,8.80,12,132.00,13644009,Hyperlipidemia
+2024-02-12T14:00:00Z,,P-9c7e1f3a,UnitedHealthcare,E-012,313988,Hydrochlorothiazide 25 MG Oral Tablet,6.50,5.20,12,78.00,38341003,Hypertension
+2024-02-15T09:20:00Z,,P-6e3a8b5c,Aetna,E-013,904420,HCTZ 25mg,7.00,5.60,6,42.00,38341003,Hypertension
+2024-02-18T10:50:00Z,,P-4b9d7c2e,Blue Cross,E-014,197903,Pravastatin Sodium 40 MG Oral Tablet,18.00,14.40,3,54.00,13644009,Hyperlipidemia
+2024-02-22T13:30:00Z,,P-8f1c5a7b,Cigna,E-015,1091643,Valsartan 160 MG Oral Tablet,28.00,22.40,6,168.00,38341003,Hypertension
