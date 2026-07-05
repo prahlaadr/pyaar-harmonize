@@ -1,8 +1,10 @@
-# LinkedIn Post: Drug Name Normalizer
+# LinkedIn Post: pyaar harmonize (drug-name normalization)
+
+> Drug-name normalization is the first tool in **pyaar harmonize**, a growing suite of healthcare-data harmonizers (RxNorm, ICD-10, CPT, LOINC, SNOMED, and more) built to align with the open-source [Tuva Project](https://thetuvaproject.com). This post covers that first tool.
 
 ---
 
-## 🏥 Built a Drug Name Normalizer to Solve a Real Healthcare Data Problem
+## 🏥 Built a drug-name normalizer to solve a real healthcare data problem
 
 **The Problem:**
 Healthcare data comes from multiple sources with inconsistent medication naming. Hospital A records "Tylenol 500mg," Hospital B uses "acetaminophen 500 mg tablet," and Hospital C logs "APAP 325mg" – all referring to the same drug. Without standardization, data analysis treats these as three different medications, making aggregation across hospital systems nearly impossible.
@@ -57,7 +59,7 @@ Without normalization, you can't:
 **The Solution:**
 I built a web app that automatically normalizes messy medication names to standardized generic names using the NIH's public RxNorm API. Upload a CSV, select your medication column, and download enriched data with a new `GENERIC_NAME` column – all in under 2 minutes.
 
-**Live Demo:** https://drug-normalizer.vercel.app
+**Live Demo:** https://harmonize.pyaarproject.org/drug-names
 
 ---
 
@@ -174,8 +176,8 @@ I initially considered building an MCP (Model Context Protocol) server for devel
 
 ## 🔗 Try It Yourself
 
-**Live Demo:** https://drug-normalizer.vercel.app
-**GitHub:** https://github.com/prahlaadr/drug-normalizer
+**Live Demo:** https://harmonize.pyaarproject.org/drug-names
+**GitHub:** https://github.com/prahlaadr/pyaar-harmonize
 
 Click "Try Sample Data" to test with realistic synthetic patient data (Synthea format) – no upload required. The sample includes 15 medications with brand names, abbreviations, and chemical variants.
 
