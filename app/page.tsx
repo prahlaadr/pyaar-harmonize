@@ -83,7 +83,7 @@ export default function Home() {
           Turn messy healthcare data into <em>analytics-ready</em> data.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-secondary md:text-lg">
-          Pyaar Harmonize is a growing suite of harmonizers that standardize the
+          pyaar harmonize is a growing suite of harmonizers that standardize the
           vocabularies healthcare data is built on, RxNorm, ICD-10, CPT, LOINC,
           SNOMED, and more. It starts where the mess usually does: drug names.
         </p>
@@ -123,7 +123,7 @@ export default function Home() {
             </a>{" "}
             turns raw claims and clinical data into a common data model through
             data quality, vocabulary normalization, and analytics-ready data
-            marts. Pyaar Harmonize builds the same normalization primitives as
+            marts. pyaar harmonize builds the same normalization primitives as
             small, browser-first tools, aligned with Tuva&apos;s vocabularies and
             data-quality principles. The goal: to become a{" "}
             <em>trusted partner in the Tuva ecosystem</em>.

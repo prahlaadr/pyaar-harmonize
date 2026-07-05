@@ -28,12 +28,12 @@ const themeInitScript = `(function(){try{if(localStorage.getItem('theme')==='dar
 export const metadata: Metadata = {
   metadataBase: new URL("https://harmonize.pyaarproject.org"),
   title: {
-    default: "Pyaar Harmonize · Healthcare data harmonization",
-    template: "%s · Pyaar Harmonize",
+    default: "pyaar harmonize · healthcare data harmonization",
+    template: "%s · pyaar harmonize",
   },
   description:
-    "Pyaar Harmonize turns messy healthcare data into analytics-ready, standardized data. A growing suite of vocabulary and data-quality harmonizers, starting with drug-name normalization via RxNorm.",
-  applicationName: "Pyaar Harmonize",
+    "pyaar harmonize turns messy healthcare data into analytics-ready, standardized data. A growing suite of vocabulary and data-quality harmonizers, starting with drug-name normalization via RxNorm.",
+  applicationName: "pyaar harmonize",
 };
 
 export default function RootLayout({
@@ -60,8 +60,8 @@ export default function RootLayout({
         <header className="border-b border-border">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 md:px-8">
             <Link href="/" className="flex items-baseline gap-2">
-              <span className="font-serif-display text-xl text-foreground">
-                Pyaar <span className="text-accent">Harmonize</span>
+              <span className="font-serif-display text-xl lowercase text-foreground">
+                pyaar <span className="text-accent">harmonize</span>
               </span>
             </Link>
             <nav className="flex items-center gap-5 text-sm text-secondary">
@@ -83,7 +83,7 @@ export default function RootLayout({
         <footer className="border-t border-border px-4 py-8 md:px-8">
           <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 text-sm text-muted sm:flex-row">
             <p>
-              Pyaar Harmonize · a{" "}
+              pyaar harmonize · a{" "}
               <a
                 href="https://pyaarproject.org"
                 className="hover:text-foreground transition-colors"
