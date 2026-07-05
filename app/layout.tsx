@@ -1,20 +1,39 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Karma } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Karma — display serif (Google Fonts). No italic; emphasis is weight + color.
+const karma = Karma({
+  variable: "--font-karma",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// General Sans — body sans (Fontshare CDN), loaded via <link> in <head>.
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e8dfc8" }, // Kasavu cream
+    { media: "(prefers-color-scheme: dark)", color: "#3d3d3a" }, // Charcoal
+  ],
+};
+
+// Default = light (Kasavu cream). Only go dark when the user explicitly chooses
+// it. We ignore prefers-color-scheme so the brand register lands first.
+const themeInitScript = `(function(){try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}})();`;
 
 export const metadata: Metadata = {
-  title: "Drug Name Normalizer",
-  description: "Normalize brand and generic drug names into standardized identifiers.",
+  metadataBase: new URL("https://harmonize.pyaarproject.org"),
+  title: {
+    default: "Pyaar Harmonize · Healthcare data harmonization",
+    template: "%s · Pyaar Harmonize",
+  },
+  description:
+    "Pyaar Harmonize turns messy healthcare data into analytics-ready, standardized data. A growing suite of vocabulary and data-quality harmonizers, starting with drug-name normalization via RxNorm.",
+  applicationName: "Pyaar Harmonize",
 };
 
 export default function RootLayout({
@@ -23,11 +42,69 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html
+      lang="en"
+      className={`${karma.variable} h-full antialiased`}
+      style={{ ["--font-general" as string]: '"General Sans", system-ui, sans-serif' }}
+      suppressHydrationWarning
+    >
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap"
+        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <header className="border-b border-border">
+          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 md:px-8">
+            <Link href="/" className="flex items-baseline gap-2">
+              <span className="font-serif-display text-xl text-foreground">
+                Pyaar <span className="text-accent">Harmonize</span>
+              </span>
+            </Link>
+            <nav className="flex items-center gap-5 text-sm text-secondary">
+              <Link href="/drug-names" className="hover:text-foreground transition-colors">
+                Drug names
+              </Link>
+              <a
+                href="https://pyaarproject.org"
+                className="hover:text-foreground transition-colors"
+              >
+                pyaar project ↗
+              </a>
+            </nav>
+          </div>
+        </header>
+
+        <main className="flex-1">{children}</main>
+
+        <footer className="border-t border-border px-4 py-8 md:px-8">
+          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 text-sm text-muted sm:flex-row">
+            <p>
+              Pyaar Harmonize · a{" "}
+              <a
+                href="https://pyaarproject.org"
+                className="hover:text-foreground transition-colors"
+              >
+                pyaar project
+              </a>{" "}
+              tool
+            </p>
+            <p className="text-xs">
+              Built on open healthcare standards · working toward the{" "}
+              <a
+                href="https://thetuvaproject.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                Tuva Project
+              </a>
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

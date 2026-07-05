@@ -1,317 +1,207 @@
-'use client';
+import Link from "next/link";
 
-import { useState } from 'react';
-import { readCSVFile, downloadCSV, generateCSV, addGenericNameColumn, detectMedicationColumn } from '@/lib/csv-processor';
-import { normalizeDrugNameBatch } from '@/lib/rxnorm-client';
-import { CSVRow, NormalizedRow, ParsedCSVData } from '@/lib/types';
+type Tool = {
+  name: string;
+  standard: string;
+  blurb: string;
+  href?: string;
+  status: "live" | "soon";
+};
+
+// Tiles map to the Tuva Project's vocabulary-normalization + data-quality
+// surface. Drug names (RxNorm) is live; the rest trace Tuva's code systems.
+const TOOLS: Tool[] = [
+  {
+    name: "Drug Name Normalization",
+    standard: "RxNorm",
+    blurb:
+      "Map brand names, abbreviations, and misspellings to a single generic ingredient and RxCUI. Upload a CSV, get a standardized column back.",
+    href: "/drug-names",
+    status: "live",
+  },
+  {
+    name: "NDC Crosswalk",
+    standard: "NDC → RxNorm",
+    blurb: "Resolve raw National Drug Codes to ingredients and RxCUIs for claims and pharmacy data.",
+    status: "soon",
+  },
+  {
+    name: "Diagnosis Normalization",
+    standard: "ICD-10-CM",
+    blurb: "Clean and validate diagnosis codes, map descriptions to codes, and bridge legacy ICD-9.",
+    status: "soon",
+  },
+  {
+    name: "Procedure Codes",
+    standard: "CPT · HCPCS",
+    blurb: "Standardize procedure and service codes across claims sources into one vocabulary.",
+    status: "soon",
+  },
+  {
+    name: "Lab Harmonization",
+    standard: "LOINC",
+    blurb: "Align lab result names and units to LOINC so results are comparable across systems.",
+    status: "soon",
+  },
+  {
+    name: "Clinical Terms",
+    standard: "SNOMED CT",
+    blurb: "Normalize clinical concepts and conditions to SNOMED for downstream analytics.",
+    status: "soon",
+  },
+  {
+    name: "Provider Identity",
+    standard: "NPI · Taxonomy",
+    blurb: "Resolve provider identifiers and taxonomy codes into clean, deduplicated entities.",
+    status: "soon",
+  },
+  {
+    name: "Data Quality Checks",
+    standard: "Tuva-style",
+    blurb: "Profile input data for completeness, conformance, and plausibility before it hits your model.",
+    status: "soon",
+  },
+];
+
+const PIPELINE = [
+  "Raw data",
+  "Data quality",
+  "Vocabulary normalization",
+  "Core data model",
+  "Data marts",
+];
 
 export default function Home() {
-  const [csvData, setCSVData] = useState<ParsedCSVData | null>(null);
-  const [selectedColumn, setSelectedColumn] = useState<string>('');
-  const [processing, setProcessing] = useState(false);
-  const [progress, setProgress] = useState({ current: 0, total: 0, drugName: '' });
-  const [normalizedData, setNormalizedData] = useState<NormalizedRow[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  // Load sample data
-  const loadSample = async () => {
-    try {
-      setError(null);
-      const response = await fetch('/realistic-sample.csv');
-      const text = await response.text();
-
-      // Parse using csv-processor
-      const Papa = await import('papaparse');
-      Papa.parse(text, {
-        header: true,
-        skipEmptyLines: true,
-        complete: (results) => {
-          const columns = results.meta.fields || [];
-          setCSVData({
-            data: results.data as CSVRow[],
-            columns,
-            meta: results.meta,
-          });
-
-          // Auto-detect medication column
-          const detected = detectMedicationColumn(columns);
-          if (detected) {
-            setSelectedColumn(detected);
-          }
-        },
-      });
-    } catch (err) {
-      setError(`Failed to load sample: ${err}`);
-    }
-  };
-
-  // Handle file upload
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setError(null);
-      const parsed = await readCSVFile(file);
-      setCSVData(parsed);
-
-      // Auto-detect medication column
-      const detected = detectMedicationColumn(parsed.columns);
-      if (detected) {
-        setSelectedColumn(detected);
-      }
-    } catch (err) {
-      setError(`Failed to parse CSV: ${err}`);
-    }
-  };
-
-  // Normalize drugs
-  const handleNormalize = async () => {
-    if (!csvData || !selectedColumn) return;
-
-    try {
-      setProcessing(true);
-      setError(null);
-
-      // Extract drug names from selected column
-      const drugNames = csvData.data.map(row => String(row[selectedColumn] || '').trim()).filter(Boolean);
-      const uniqueDrugs = Array.from(new Set(drugNames));
-
-      // Normalize with progress
-      const results = await normalizeDrugNameBatch(
-        uniqueDrugs,
-        (completed, total, current) => {
-          setProgress({ current: completed, total, drugName: current });
-        }
-      );
-
-      // Build map of original name → generic name
-      const genericMap = new Map<string, string>();
-      results.forEach(result => {
-        genericMap.set(result.originalName, result.genericName || 'NOT_FOUND');
-      });
-
-      // Add generic name column
-      const normalized = addGenericNameColumn(csvData.data, selectedColumn, genericMap);
-      setNormalizedData(normalized);
-    } catch (err) {
-      setError(`Normalization failed: ${err}`);
-    } finally {
-      setProcessing(false);
-    }
-  };
-
-  // Download results
-  const handleDownload = () => {
-    if (!normalizedData) return;
-
-    const csv = generateCSV(normalizedData);
-    downloadCSV(csv, 'normalized-medications.csv');
-  };
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Drug Name Normalizer
-          </h1>
-          <p className="text-xl text-gray-600">
-            Standardize medication names using RxNorm API
-          </p>
+    <div className="px-4 md:px-8">
+      {/* Hero */}
+      <section className="mx-auto max-w-3xl pt-16 pb-14 md:pt-24">
+        <span className="text-xs font-medium uppercase tracking-[0.25em] text-accent">
+          Healthcare data harmonization
+        </span>
+        <h1 className="font-serif-display mt-5 text-4xl leading-[1.05] text-foreground md:text-6xl">
+          Turn messy healthcare data into <em>analytics-ready</em> data.
+        </h1>
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-secondary md:text-lg">
+          Pyaar Harmonize is a growing suite of harmonizers that standardize the
+          vocabularies healthcare data is built on, RxNorm, ICD-10, CPT, LOINC,
+          SNOMED, and more. It starts where the mess usually does: drug names.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            href="/drug-names"
+            className="focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium uppercase tracking-wider text-accent-foreground transition-colors hover:opacity-90"
+          >
+            Try drug-name normalization →
+          </Link>
+          <a
+            href="https://thetuvaproject.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-border px-6 py-3 text-sm font-medium uppercase tracking-wider text-foreground transition-colors hover:bg-foreground/5"
+          >
+            About the Tuva Project ↗
+          </a>
         </div>
+      </section>
 
-        {/* Error Display */}
-        {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
-
-        {/* Upload Section */}
-        {!csvData && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            {/* Instructions */}
-            <div className="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
-              <h2 className="text-lg font-bold text-gray-900 mb-3">How It Works</h2>
-              <ol className="space-y-2 text-gray-700">
-                <li className="flex items-start">
-                  <span className="font-bold text-blue-600 mr-2">1.</span>
-                  <span><strong>Upload your data:</strong> Click &ldquo;Try Sample Data&rdquo; to test with example medications, or upload your own CSV file containing medication names</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-bold text-blue-600 mr-2">2.</span>
-                  <span><strong>Select column:</strong> Choose which column contains the medication names to normalize</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-bold text-blue-600 mr-2">3.</span>
-                  <span><strong>Process:</strong> We&apos;ll use RxNorm API to convert brand names and variations to standardized generic names</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-bold text-blue-600 mr-2">4.</span>
-                  <span><strong>Download:</strong> Get your enriched CSV with a new GENERIC_NAME column added</span>
-                </li>
-              </ol>
-              <p className="text-sm text-gray-600 mt-4 italic">
-                💡 All processing happens in your browser - your data never leaves your device
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <button
-                onClick={loadSample}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition"
-              >
-                Try Sample Data (15 medications)
-              </button>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">or</span>
-                </div>
-              </div>
-
-              <label className="block">
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition cursor-pointer">
-                  <input
-                    type="file"
-                    accept=".csv"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                  <p className="text-gray-600 font-semibold">Click to upload your CSV file</p>
-                  <p className="text-sm text-gray-400 mt-2">or drag and drop</p>
-                  <p className="text-xs text-gray-400 mt-2">Maximum file size: 10MB</p>
-                </div>
-              </label>
-            </div>
-          </div>
-        )}
-
-        {/* Column Selection */}
-        {csvData && !normalizedData && !processing && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">Select Medication Column</h2>
-            <p className="text-gray-600 mb-6">
-              Found {csvData.data.length} rows with {csvData.columns.length} columns
-            </p>
-
-            <select
-              value={selectedColumn}
-              onChange={(e) => setSelectedColumn(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mb-6 text-gray-800 font-medium bg-white"
+      {/* Tuva alignment */}
+      <section className="mx-auto max-w-3xl border-t border-border py-12">
+        <div className="rounded-xl border border-border bg-surface p-6 md:p-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+            Built to plug into the Tuva Project
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-secondary md:text-base">
+            The open-source{" "}
+            <a
+              href="https://thetuvaproject.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground"
             >
-              <option value="" className="text-gray-400">Select a column...</option>
-              {csvData.columns.map((col) => (
-                <option key={col} value={col} className="text-gray-800">
-                  {col}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex gap-4">
-              <button
-                onClick={handleNormalize}
-                disabled={!selectedColumn}
-                className="flex-1 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-lg transition"
-              >
-                Normalize Drug Names
-              </button>
-              <button
-                onClick={() => {
-                  setCSVData(null);
-                  setSelectedColumn('');
-                  setError(null);
-                }}
-                className="px-8 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-4 rounded-lg transition"
-              >
-                Start Over
-              </button>
-            </div>
+              Tuva Project
+            </a>{" "}
+            turns raw claims and clinical data into a common data model through
+            data quality, vocabulary normalization, and analytics-ready data
+            marts. Pyaar Harmonize builds the same normalization primitives as
+            small, browser-first tools, aligned with Tuva&apos;s vocabularies and
+            data-quality principles. The goal: to become a{" "}
+            <em>trusted partner in the Tuva ecosystem</em>.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted">
+            {PIPELINE.map((step, i) => (
+              <span key={step} className="flex items-center gap-2">
+                <span
+                  className={
+                    step === "Vocabulary normalization"
+                      ? "rounded border border-accent px-2 py-1 font-medium text-accent"
+                      : "rounded border border-border px-2 py-1"
+                  }
+                >
+                  {step}
+                </span>
+                {i < PIPELINE.length - 1 && <span className="text-border">→</span>}
+              </span>
+            ))}
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* Processing Status */}
-        {processing && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">Processing...</h2>
-            <div className="mb-4">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Progress: {progress.current} / {progress.total}</span>
-                <span>{Math.round((progress.current / progress.total) * 100)}%</span>
+      {/* Tools grid */}
+      <section className="mx-auto max-w-5xl border-t border-border py-14">
+        <h2 className="font-serif-display text-2xl text-foreground md:text-3xl">
+          The harmonizers
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-secondary md:text-base">
+          One tool per vocabulary. Drug names is live now, the rest are on the way.
+        </p>
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {TOOLS.map((tool) => {
+            const inner = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted">
+                    {tool.standard}
+                  </span>
+                  {tool.status === "live" ? (
+                    <span className="rounded-full bg-accent-secondary/30 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-green">
+                      Live
+                    </span>
+                  ) : (
+                    <span className="rounded-full border border-border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted">
+                      Coming soon
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-3 text-lg font-semibold text-foreground">{tool.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-secondary">{tool.blurb}</p>
+                {tool.status === "live" && (
+                  <span className="mt-4 inline-block text-sm font-medium text-accent">
+                    Open tool →
+                  </span>
+                )}
+              </>
+            );
+
+            return tool.href ? (
+              <Link
+                key={tool.name}
+                href={tool.href}
+                className="focus-ring group rounded-xl border border-accent bg-surface p-5 transition-colors hover:bg-surface-alt"
+              >
+                {inner}
+              </Link>
+            ) : (
+              <div
+                key={tool.name}
+                className="rounded-xl border border-border p-5 opacity-75"
+              >
+                {inner}
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4">
-                <div
-                  className="bg-blue-500 h-4 rounded-full transition-all"
-                  style={{ width: `${(progress.current / progress.total) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-            {progress.drugName && (
-              <p className="text-sm text-gray-500">
-                Processing: {progress.drugName}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Results */}
-        {normalizedData && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">✓ Normalization Complete</h2>
-            <p className="text-gray-600 mb-6">
-              Successfully processed {normalizedData.length} medications
-            </p>
-
-            <div className="mb-6 overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b-2 border-gray-300">
-                    <th className="text-left p-3 font-bold text-gray-800">Original</th>
-                    <th className="text-left p-3 font-bold text-gray-800">Generic Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {normalizedData.slice(0, 10).map((row, i) => (
-                    <tr key={i} className="border-b border-gray-200">
-                      <td className="p-3 text-gray-700">{String(row[selectedColumn])}</td>
-                      <td className="p-3 font-semibold text-blue-600">{row.GENERIC_NAME}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {normalizedData.length > 10 && (
-                <p className="text-sm text-gray-500 mt-2">
-                  Showing 10 of {normalizedData.length} rows
-                </p>
-              )}
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                onClick={handleDownload}
-                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition"
-              >
-                Download Normalized CSV
-              </button>
-              <button
-                onClick={() => {
-                  setCSVData(null);
-                  setNormalizedData(null);
-                  setSelectedColumn('');
-                }}
-                className="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-4 px-6 rounded-lg transition"
-              >
-                Process Another File
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </main>
+            );
+          })}
+        </div>
+      </section>
+    </div>
   );
 }

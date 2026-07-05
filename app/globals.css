@@ -1,26 +1,110 @@
+/* ============================================================
+   PYAAR THEME : Kerala mural, Karma + General Sans, bell hooks
+   Canonical brand tokens, shared with pyaarproject.org.
+   Source of truth: pyaarproject/DESIGN.md (v3, 2026-04-29).
+   Fonts (--font-general / --font-karma) are wired in layout.tsx.
+   ============================================================ */
+
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme (canonical) */
+  --background: #e8dfc8;            /* Kasavu cream */
+  --foreground: #3d3d3a;            /* Charcoal */
+  --secondary: #525250;             /* body copy, ~6:1 on cream */
+  --muted: #9b9b95;                 /* Elephant grey */
+  --border: #c7bfa8;                /* warm tan */
+  --surface: #f5ecd5;
+  --surface-alt: #d4cbb5;
+  --accent: #8b3530;                /* Madder red (chuvappu / kavi clay) */
+  --accent-foreground: #e8dfc8;
+  --accent-light: #eccbc4;
+  --accent-secondary: #8faa73;      /* Light pacha */
+  --brand-green: #1c2e22;           /* Plantation */
+  --spice: #c26b3e;
+  --saffron: #d4a642;               /* Manjayil saffron */
+}
+
+.dark {
+  --background: #3d3d3a;            /* Charcoal */
+  --foreground: #e8dfc8;
+  --secondary: #b7af99;
+  --muted: #9b9b95;
+  --border: #585855;
+  --surface: #484844;
+  --surface-alt: #52524f;
+  --accent: #ac524b;
+  --accent-foreground: #3d3d3a;
+  --accent-light: #5c2520;
+  --accent-secondary: #8faa73;
+  --brand-green: #d4a642;           /* SAFFRON in dark mode */
+  --spice: #c26b3e;
+  --saffron: #d4a642;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-light: var(--accent-light);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-brand-green: var(--brand-green);
+  --color-spice: var(--spice);
+  --color-saffron: var(--saffron);
+  --font-sans: var(--font-general);   /* General Sans (Fontshare) */
+  --font-serif: var(--font-karma);    /* Karma (Google Fonts) */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Emphasis is weight + color, NOT italic. Karma has no italic face. */
+em,
+.emphasis {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--accent);
+}
+
+strong { font-weight: 600; color: var(--foreground); }
+
+/* Display serif: Karma 500. Hero h1, section h2, wordmark. */
+.font-serif-display {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+html { scroll-behavior: smooth; }
+
+::selection { background: var(--accent); color: var(--accent-foreground); }
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
