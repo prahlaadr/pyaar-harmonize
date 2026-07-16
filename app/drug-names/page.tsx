@@ -205,18 +205,54 @@ export default function DrugNames() {
               Found {csvData.data.length} rows with {csvData.columns.length} columns.
             </p>
 
-            <select
-              value={selectedColumn}
-              onChange={(e) => setSelectedColumn(e.target.value)}
-              className="mt-6 w-full rounded-lg border border-border bg-background p-3 font-medium text-foreground"
-            >
-              <option value="">Select a column...</option>
-              {csvData.columns.map((col) => (
-                <option key={col} value={col}>
-                  {col}
-                </option>
-              ))}
-            </select>
+            <p className="mt-2 text-sm text-secondary">
+              Click a column header to choose which one holds the medication names.
+            </p>
+
+            <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+              <table className="w-full border-collapse text-left text-sm">
+                <thead>
+                  <tr>
+                    {csvData.columns.map((col) => {
+                      const selected = col === selectedColumn;
+                      return (
+                        <th key={col} className="border-b border-border p-0">
+                          <button
+                            onClick={() => setSelectedColumn(col)}
+                            className={`focus-ring w-full whitespace-nowrap px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider transition-colors ${
+                              selected
+                                ? 'bg-accent text-accent-foreground'
+                                : 'bg-background text-secondary hover:bg-foreground/5'
+                            }`}
+                          >
+                            {col}
+                          </button>
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {csvData.data.slice(0, 5).map((row, i) => (
+                    <tr key={i} className="border-b border-border last:border-0">
+                      {csvData.columns.map((col) => (
+                        <td
+                          key={col}
+                          title={String(row[col] ?? '')}
+                          className={`max-w-[220px] truncate whitespace-nowrap px-3 py-2 ${
+                            col === selectedColumn
+                              ? 'bg-accent-light text-foreground'
+                              : 'text-secondary'
+                          }`}
+                        >
+                          {String(row[col] ?? '')}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {(() => {
               if (!selectedColumn) return null;
