@@ -218,6 +218,36 @@ export default function DrugNames() {
               ))}
             </select>
 
+            {(() => {
+              if (!selectedColumn) return null;
+              const names = csvData.data
+                .map((row) => String(row[selectedColumn] || '').trim())
+                .filter(Boolean);
+              const uniqueNames = Array.from(new Set(names));
+              return (
+                <div className="mt-6 rounded-lg border border-border bg-background p-4">
+                  <h3 className="text-sm font-semibold text-foreground">
+                    Preview: {uniqueNames.length} unique names to normalize
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {uniqueNames.slice(0, 30).map((name) => (
+                      <li
+                        key={name}
+                        className="rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-secondary"
+                      >
+                        {name}
+                      </li>
+                    ))}
+                  </ul>
+                  {uniqueNames.length > 30 && (
+                    <p className="mt-3 text-xs text-muted">
+                      Showing 30 of {uniqueNames.length} unique names.
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
+
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 onClick={handleNormalize}
