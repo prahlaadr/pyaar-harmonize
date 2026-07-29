@@ -104,7 +104,7 @@ export default function DrugNames() {
 
   return (
     <div className="px-4 py-12 md:px-8 md:py-16">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl">
         <Link
           href="/"
           className="text-sm text-muted transition-colors hover:text-foreground"
