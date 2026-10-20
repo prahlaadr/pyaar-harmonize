@@ -1,0 +1,112 @@
+Prscrbr_NPI,Prscrbr_State_Abrvtn,Prscrbr_Type,Brnd_Name,Gnrc_Name,Tot_Clms,Tot_30day_Fills,Tot_Drug_Cst,Tot_Benes
+1999900001,IL,Family Practice,Atorvastatin Calcium,Atorvastatin Calcium,171,229.2,1953.72,62
+1999900001,IL,Family Practice,Amlodipine Besylate,Amlodipine Besylate,86,90.4,470.29,20
+1999900001,IL,Family Practice,Lisinopril,Lisinopril,295,400.0,1881.23,60
+1999900001,IL,Family Practice,Levothyroxine Sodium,Levothyroxine Sodium,69,151.0,719.9,20
+1999900001,IL,Family Practice,Losartan-Hydrochlorothiazide,Losartan/Hydrochlorothiazide,414,550.6,6616.89,84
+1999900001,IL,Family Practice,Hydrocodone-Acetaminophen,Hydrocodone/Acetaminophen,174,396.1,2940.05,32
+1999900001,IL,Family Practice,Amoxicillin-Clavulanate Potass,Amoxicillin/Potassium Clav,36,65.2,307.43,
+1999900001,IL,Family Practice,Gabapentin,Gabapentin,249,629.4,3757.54,80
+1999900001,IL,Family Practice,Omeprazole,Omeprazole,58,143.7,845.87,15
+1999900001,IL,Family Practice,Sertraline Hcl,Sertraline Hcl,214,451.4,1985.48,67
+1999900001,IL,Family Practice,Meloxicam,Meloxicam,287,579.4,1088.05,73
+1999900002,TX,Family Practice,Atorvastatin Calcium,Atorvastatin Calcium,118,259.6,1328.81,37
+1999900002,TX,Family Practice,Amlodipine Besylate,Amlodipine Besylate,226,392.2,1300.26,55
+1999900002,TX,Family Practice,Lisinopril,Lisinopril,277,364.0,2013.6,55
+1999900002,TX,Family Practice,Metformin Hcl,Metformin Hcl,85,202.9,590.26,27
+1999900002,TX,Family Practice,Levothyroxine Sodium,Levothyroxine Sodium,335,429.2,4027.41,77
+1999900002,TX,Family Practice,Losartan-Hydrochlorothiazide,Losartan/Hydrochlorothiazide,158,160.7,2364.19,29
+1999900002,TX,Family Practice,Hydrocodone-Acetaminophen,Hydrocodone/Acetaminophen,352,602.0,7168.43,86
+1999900002,TX,Family Practice,Amoxicillin-Clavulanate Potass,Amoxicillin/Potassium Clav,181,244.5,1576.1,38
+1999900002,TX,Family Practice,Gabapentin,Gabapentin,254,451.5,3618.77,52
+1999900002,TX,Family Practice,Omeprazole,Omeprazole,310,502.7,3875.46,94
+1999900003,FL,Internal Medicine,Atorvastatin Calcium,Atorvastatin Calcium,344,613.2,3063.69,61
+1999900003,FL,Internal Medicine,Rosuvastatin Calcium,Rosuvastatin Calcium,398,727.7,5652.25,113
+1999900003,FL,Internal Medicine,Eliquis,Apixaban,321,388.3,308386.27,100
+1999900003,FL,Internal Medicine,Jardiance,Empagliflozin,413,953.6,421061.75,110
+1999900003,FL,Internal Medicine,Lantus Solostar,"Insulin Glargine,hum.Rec.Anlog",338,524.4,38093.27,84
+1999900003,FL,Internal Medicine,Pantoprazole Sodium,Pantoprazole Sodium,59,73.1,726.57,11
+1999900003,FL,Internal Medicine,Furosemide,Furosemide,342,597.4,1646.73,70
+1999900003,FL,Internal Medicine,Potassium Chloride,Potassium Chloride,388,800.8,7101.14,97
+1999900003,FL,Internal Medicine,Tamsulosin Hcl,Tamsulosin Hcl,413,673.4,5079.88,81
+1999900003,FL,Internal Medicine,Clickfine,"Pen Needle, Diabetic",414,993.4,7446.58,97
+1999900004,PA,Internal Medicine,Atorvastatin Calcium,Atorvastatin Calcium,64,70.4,573.53,12
+1999900004,PA,Internal Medicine,Eliquis,Apixaban,77,149.4,63626.26,21
+1999900004,PA,Internal Medicine,Jardiance,Empagliflozin,365,433.3,408916.22,64
+1999900004,PA,Internal Medicine,Lantus Solostar,"Insulin Glargine,hum.Rec.Anlog",64,81.8,8810.93,16
+1999900004,PA,Internal Medicine,Pantoprazole Sodium,Pantoprazole Sodium,365,562.6,5196.08,61
+1999900004,PA,Internal Medicine,Potassium Chloride,Potassium Chloride,136,309.1,2646.51,37
+1999900004,PA,Internal Medicine,Tamsulosin Hcl,Tamsulosin Hcl,214,503.3,2618.43,54
+1999900004,PA,Internal Medicine,Clickfine,"Pen Needle, Diabetic",99,102.0,1838.23,26
+1999900005,NY,Cardiology,Metoprolol Succinate,Metoprolol Succinate,309,617.6,4519.33,87
+1999900005,NY,Cardiology,Carvedilol,Carvedilol,304,556.8,2449.86,59
+1999900005,NY,Cardiology,Eliquis,Apixaban,136,149.7,122592.33,36
+1999900005,NY,Cardiology,Entresto,Sacubitril/Valsartan,414,500.5,413110.94,85
+1999900005,NY,Cardiology,Clopidogrel,Clopidogrel Bisulfate,275,405.2,3189.72,59
+1999900005,NY,Cardiology,Spironolactone,Spironolactone,410,922.4,3579.22,69
+1999900006,TX,Cardiology,Metoprolol Succinate,Metoprolol Succinate,205,473.6,2960.64,65
+1999900006,TX,Cardiology,Carvedilol,Carvedilol,197,449.1,1525.69,40
+1999900006,TX,Cardiology,Eliquis,Apixaban,131,305.3,127889.76,34
+1999900006,TX,Cardiology,Entresto,Sacubitril/Valsartan,92,203.8,99210.65,21
+1999900006,TX,Cardiology,Spironolactone,Spironolactone,315,479.0,3058.6,62
+1999900006,TX,Cardiology,Rosuvastatin Calcium,Rosuvastatin Calcium,170,424.7,2097.12,57
+1999900007,OH,Endocrinology,Ozempic,Semaglutide,390,673.0,468502.92,115
+1999900007,OH,Endocrinology,Trulicity,Dulaglutide,29,69.5,38114.52,
+1999900007,OH,Endocrinology,Toujeo Solostar,"Insulin Glargine,hum.Rec.Anlog",231,387.7,182200.75,38
+1999900007,OH,Endocrinology,Levothyroxine Sodium,Levothyroxine Sodium,399,877.7,4860.69,143
+1999900007,OH,Endocrinology,Janumet,Sitagliptin Phos/Metformin Hcl,263,399.0,246544.18,47
+1999900008,IL,Endocrinology,Ozempic,Semaglutide,51,100.7,72902.06,14
+1999900008,IL,Endocrinology,Trulicity,Dulaglutide,274,636.0,331810.67,69
+1999900008,IL,Endocrinology,Jardiance,Empagliflozin,274,642.4,314699.23,88
+1999900008,IL,Endocrinology,Toujeo Solostar,"Insulin Glargine,hum.Rec.Anlog",148,301.3,95364.52,38
+1999900008,IL,Endocrinology,Levothyroxine Sodium,Levothyroxine Sodium,130,257.2,1252.83,33
+1999900008,IL,Endocrinology,Janumet,Sitagliptin Phos/Metformin Hcl,388,604.0,353341.11,90
+1999900009,NY,Psychiatry,Trazodone Hcl,Trazodone Hcl,396,900.3,3591.92,107
+1999900009,NY,Psychiatry,Escitalopram Oxalate,Escitalopram Oxalate,128,257.8,1445.19,29
+1999900009,NY,Psychiatry,Alprazolam,Alprazolam,342,750.6,1582.05,107
+1999900009,NY,Psychiatry,Buprenorphine-Naloxone,Buprenorphine Hcl/Naloxone Hcl,175,437.4,23196.51,60
+1999900009,NY,Psychiatry,Aripiprazole,Aripiprazole,93,226.6,5791.48,20
+1999900010,FL,Psychiatry,Escitalopram Oxalate,Escitalopram Oxalate,44,101.5,461.5,11
+1999900010,FL,Psychiatry,Bupropion Xl,Bupropion Hcl,35,57.0,864.22,
+1999900010,FL,Psychiatry,Buprenorphine-Naloxone,Buprenorphine Hcl/Naloxone Hcl,42,56.2,5577.67,11
+1999900010,FL,Psychiatry,Aripiprazole,Aripiprazole,234,274.1,13321.89,62
+1999900011,NY,Ophthalmology,Latanoprost,Latanoprost,406,1026.0,4286.73,127
+1999900011,NY,Ophthalmology,Timolol Maleate,Timolol Maleate,183,199.0,2990.42,54
+1999900011,NY,Ophthalmology,Prednisolone Acetate,Prednisolone Acetate,385,991.3,15954.2,149
+1999900012,IL,Ophthalmology,Latanoprost,Latanoprost,261,640.7,3552.85,50
+1999900012,IL,Ophthalmology,Timolol Maleate,Timolol Maleate,203,320.8,3711.0,37
+1999900012,IL,Ophthalmology,Dorzolamide-Timolol,Dorzolamide Hcl/Timolol Maleat,281,350.5,5216.23,68
+1999900012,IL,Ophthalmology,Prednisolone Acetate,Prednisolone Acetate,418,716.5,15476.16,146
+1999900012,IL,Ophthalmology,Brimonidine Tartrate,Brimonidine Tartrate,156,156.6,6825.96,34
+1999900013,NY,Pulmonary Disease,Trelegy Ellipta,Fluticasone/Umeclidin/Vilanter,320,799.4,249626.72,80
+1999900013,NY,Pulmonary Disease,Breo Ellipta,Fluticasone/Vilanterol,348,685.4,203270.28,110
+1999900013,NY,Pulmonary Disease,Montelukast Sodium,Montelukast Sodium,64,98.3,718.09,12
+1999900013,NY,Pulmonary Disease,Spiriva Handihaler,Tiotropium Bromide,141,340.7,111517.99,29
+1999900013,NY,Pulmonary Disease,Prednisone,Prednisone,344,457.2,1239.08,130
+1999900014,PA,Pulmonary Disease,Trelegy Ellipta,Fluticasone/Umeclidin/Vilanter,393,681.8,286365.15,84
+1999900014,PA,Pulmonary Disease,Albuterol Sulfate Hfa,Albuterol Sulfate,66,73.4,1682.8,13
+1999900014,PA,Pulmonary Disease,Breo Ellipta,Fluticasone/Vilanterol,267,372.8,118104.97,48
+1999900014,PA,Pulmonary Disease,Montelukast Sodium,Montelukast Sodium,121,196.9,1339.87,21
+1999900014,PA,Pulmonary Disease,Spiriva Handihaler,Tiotropium Bromide,134,165.6,108280.57,43
+1999900014,PA,Pulmonary Disease,Prednisone,Prednisone,206,367.9,841.51,77
+1999900015,NC,Infectious Disease,Sulfamethoxazole-Trimethoprim,Sulfamethoxazole/Trimethoprim,306,732.9,1710.15,67
+1999900015,NC,Infectious Disease,Nitrofurantoin Mono-Macro,Nitrofurantoin Monohyd/M-Cryst,145,282.8,2405.14,31
+1999900015,NC,Infectious Disease,Paxlovid,Nirmatrelvir/Ritonavir,14,23.5,620.46,
+1999900015,NC,Infectious Disease,Shingrix,Varicella-Zoster Ge/As01b/Pf,278,414.5,55006.03,46
+1999900015,NC,Infectious Disease,Abrysvo,"Rsv Vacc, Pref A And Pref B/Pf",16,21.0,5066.84,
+1999900016,GA,Infectious Disease,Biktarvy,Bictegrav/Emtricit/Tenofov Ala,68,171.9,250238.22,12
+1999900016,GA,Infectious Disease,Sulfamethoxazole-Trimethoprim,Sulfamethoxazole/Trimethoprim,197,337.1,854.87,49
+1999900016,GA,Infectious Disease,Paxlovid,Nirmatrelvir/Ritonavir,292,554.7,17165.87,78
+1999900016,GA,Infectious Disease,Shingrix,Varicella-Zoster Ge/As01b/Pf,289,566.3,56327.31,80
+1999900016,GA,Infectious Disease,Abrysvo,"Rsv Vacc, Pref A And Pref B/Pf",173,309.7,43535.92,39
+1999900017,FL,Nurse Practitioner,Lisinopril,Lisinopril,57,95.9,357.9,21
+1999900017,FL,Nurse Practitioner,Tramadol Hcl,Tramadol Hcl,272,602.6,1714.16,102
+1999900017,FL,Nurse Practitioner,Cetirizine Hcl,Cetirizine Hcl,344,631.0,3854.91,76
+1999900017,FL,Nurse Practitioner,Gavilyte-G,"Peg3350/Sod Sulf,bicarb,cl/Kcl",207,419.7,3673.91,36
+1999900018,AZ,Nurse Practitioner,Lisinopril,Lisinopril,187,353.7,1433.9,33
+1999900018,AZ,Nurse Practitioner,Amlodipine Besylate,Amlodipine Besylate,215,398.2,1485.96,40
+1999900018,AZ,Nurse Practitioner,Metformin Hcl,Metformin Hcl,348,461.8,2979.55,67
+1999900018,AZ,Nurse Practitioner,Tramadol Hcl,Tramadol Hcl,253,300.1,1767.96,89
+1999900018,AZ,Nurse Practitioner,Cetirizine Hcl,Cetirizine Hcl,94,115.3,1410.9,24
+1999900018,AZ,Nurse Practitioner,Gavilyte-G,"Peg3350/Sod Sulf,bicarb,cl/Kcl",192,498.3,3228.57,40
+1999900018,AZ,Nurse Practitioner,Alcohol Prep Pads,Alcohol Antiseptic Pads,176,229.9,4541.23,32

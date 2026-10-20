@@ -2,10 +2,10 @@
 spec_format_version: "0.1"
 title: "pyaar harmonize"
 artifact_type: "prd"
-spec_revision: 1
+spec_revision: 2
 author: "Prahlaad"
 created_at: "2026-07-08T00:00:00Z"
-updated_at: "2026-07-08T00:00:00Z"
+updated_at: "2026-10-20T00:00:00Z"
 linked_github_repo: "prahlaadr/pyaar-harmonize"
 ---
 
@@ -36,7 +36,9 @@ Tuva-standard data without requiring a warehouse or a pipeline.
 in:
   - suite hub at / that frames the tools and their Tuva alignment
   - browser-first CSV crosswalk tools, one per Tuva-aligned vocabulary
-  - drug names to RxNorm (live today)
+  - drug names to RxNorm (live)
+  - drug classes, RxNorm to WHO ATC levels 1-4, for claims extracts with names but no codes such as CMS Part D (live)
+  - streaming large CSVs in the browser so multi-GB extracts work without upload
   - queued tiles: NDC, ICD-10, CPT/HCPCS, LOINC, SNOMED, NPI/taxonomy, data-quality checks
   - fully in-browser processing (privacy-first, no upload to a server)
   - per-tool CSV in, enriched CSV out, with progress and flagged unmatched rows
@@ -47,7 +49,7 @@ out:
   - a paid tier
 cut:
   - programmatic / bulk API access (browser UI only for now)
-  - any tool beyond drug-names being live in this revision (rest stay "coming soon")
+  - any tool beyond drug names and drug classes being live in this revision (rest stay "coming soon")
 ```
 
 ## Strategic Positioning

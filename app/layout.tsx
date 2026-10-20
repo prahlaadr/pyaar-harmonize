@@ -59,18 +59,21 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <header className="border-b border-border">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 md:px-8">
-            <Link href="/" className="flex items-baseline gap-2">
+            <Link href="/" className="flex items-baseline gap-2 whitespace-nowrap">
               <span className="font-serif-display text-xl lowercase text-foreground">
                 pyaar <span className="text-accent">harmonize</span>
               </span>
             </Link>
-            <nav className="flex items-center gap-5 text-sm text-secondary">
+            <nav className="flex items-center gap-4 whitespace-nowrap text-sm text-secondary sm:gap-5">
               <Link href="/drug-names" className="hover:text-foreground transition-colors">
                 Drug names
               </Link>
+              <Link href="/drug-classes" className="hover:text-foreground transition-colors">
+                Drug classes
+              </Link>
               <a
                 href="https://pyaarproject.org"
-                className="hover:text-foreground transition-colors"
+                className="hidden hover:text-foreground transition-colors sm:inline"
               >
                 pyaar project ↗
               </a>

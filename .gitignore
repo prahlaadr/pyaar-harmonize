@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# evaluation output (scripts/eval-partd.ts)
+/scripts/out/
