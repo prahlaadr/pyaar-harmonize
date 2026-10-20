@@ -2,9 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { readCSVFile, downloadCSV, generateCSV, addGenericNameColumn, detectMedicationColumn } from '@/lib/csv-processor';
-import { normalizeDrugNameBatch } from '@/lib/rxnorm-client';
+import { readCSVFile, downloadCSV, generateCSV, addMatchColumns, detectMedicationColumn } from '@/lib/csv-processor';
+import { DrugMatch, MATCH_TYPE_LABELS, MatchType, matchDrugs, needsReview } from '@/lib/drug-match';
 import { CSVRow, NormalizedRow, ParsedCSVData } from '@/lib/types';
+
+const MATCH_TONE: Record<MatchType, string> = {
+  exact: 'bg-accent-secondary/30 text-brand-green',
+  combination: 'bg-accent-secondary/30 text-brand-green',
+  brand: 'bg-accent-secondary/30 text-brand-green',
+  cleaned: 'bg-accent-secondary/20 text-brand-green',
+  approximate: 'bg-saffron/30 text-foreground',
+  supply: 'bg-surface-alt text-secondary',
+  not_found: 'bg-accent-light text-accent',
+  error: 'bg-accent-light text-accent',
+};
 
 export default function DrugNames() {
   const [csvData, setCSVData] = useState<ParsedCSVData | null>(null);
@@ -74,19 +85,14 @@ export default function DrugNames() {
       const drugNames = csvData.data.map(row => String(row[selectedColumn] || '').trim()).filter(Boolean);
       const uniqueDrugs = Array.from(new Set(drugNames));
 
-      const results = await normalizeDrugNameBatch(
-        uniqueDrugs,
-        (completed, total, current) => {
-          setProgress({ current: completed, total, drugName: current });
-        }
-      );
-
-      const genericMap = new Map<string, string>();
-      results.forEach(result => {
-        genericMap.set(result.originalName, result.genericName || 'NOT_FOUND');
+      const results = await matchDrugs(uniqueDrugs, (completed, total, current) => {
+        setProgress({ current: completed, total, drugName: current });
       });
 
-      const normalized = addGenericNameColumn(csvData.data, selectedColumn, genericMap);
+      const matchMap = new Map<string, DrugMatch>();
+      results.forEach((result, i) => matchMap.set(uniqueDrugs[i], result));
+
+      const normalized = addMatchColumns(csvData.data, selectedColumn, matchMap);
       setNormalizedData(normalized);
     } catch (err) {
       setError(`Normalization failed: ${err}`);
@@ -155,11 +161,12 @@ export default function DrugNames() {
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 font-semibold text-accent">4.</span>
-                  <span><strong>Download:</strong> get your enriched CSV with a new GENERIC_NAME column.</span>
+                  <span><strong>Download:</strong> get your enriched CSV with GENERIC_NAME, RXCUI and MATCH_TYPE columns. Exact matches are tried first; fuzzy matches are labeled so you can review them.</span>
                 </li>
               </ol>
               <p className="mt-4 text-xs text-muted">
-                All processing happens in your browser, your data never leaves your device.
+                Your file stays in your browser. Only the distinct drug names are sent to the NIH RxNorm API.
+                Need drug classes? Use the <Link href="/drug-classes" className="text-accent underline-offset-2 hover:underline">Drug Class Rollup</Link>.
               </p>
             </div>
 
@@ -335,7 +342,11 @@ export default function DrugNames() {
           <div className="rounded-xl border border-border bg-surface p-6 md:p-8">
             <h2 className="text-xl font-semibold text-foreground">Normalization complete</h2>
             <p className="mt-2 text-sm text-secondary">
-              Successfully processed {normalizedData.length} medications.
+              Processed {normalizedData.length} rows.{' '}
+              {(() => {
+                const review = normalizedData.filter((r) => needsReview(r.MATCH_TYPE as MatchType)).length;
+                return review ? `${review} rows have a fuzzy or missing match worth a look.` : 'Every row matched without fuzzy matching.';
+              })()}
             </p>
 
             <div className="mt-6 overflow-x-auto">
@@ -344,6 +355,8 @@ export default function DrugNames() {
                   <tr className="border-b border-border">
                     <th className="p-3 text-left font-semibold text-foreground">Original</th>
                     <th className="p-3 text-left font-semibold text-foreground">Generic name</th>
+                    <th className="p-3 text-left font-semibold text-foreground">RxCUI</th>
+                    <th className="p-3 text-left font-semibold text-foreground">Match</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -351,6 +364,12 @@ export default function DrugNames() {
                     <tr key={i} className="border-b border-border">
                       <td className="p-3 text-secondary">{String(row[selectedColumn])}</td>
                       <td className="p-3 font-medium text-accent">{row.GENERIC_NAME}</td>
+                      <td className="p-3 font-mono text-xs text-secondary">{row.RXCUI}</td>
+                      <td className="p-3">
+                        <span className={`inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${MATCH_TONE[row.MATCH_TYPE as MatchType] ?? ''}`}>
+                          {MATCH_TYPE_LABELS[row.MATCH_TYPE as MatchType] ?? row.MATCH_TYPE}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

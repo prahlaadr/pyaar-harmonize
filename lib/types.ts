@@ -100,6 +100,8 @@ export interface NormalizationProgress {
  */
 export interface NormalizedRow extends CSVRow {
   GENERIC_NAME: string;
+  RXCUI: string;
+  MATCH_TYPE: string;
 }
 
 // ============================================================================

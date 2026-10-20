@@ -14,6 +14,7 @@ import {
   DEFAULT_CSV_CONFIG,
   GENERIC_NAME_COLUMN,
 } from './types';
+import type { DrugMatch } from './drug-match';
 
 /**
  * Custom error class for CSV processing errors
@@ -253,6 +254,28 @@ export function addGenericNameColumn(
     return {
       ...row,
       [GENERIC_NAME_COLUMN]: genericName,
+    } as NormalizedRow;
+  });
+}
+
+/**
+ * Append GENERIC_NAME (all active ingredients, " / " separated), RXCUI and
+ * MATCH_TYPE columns from matcher results keyed by the original name.
+ */
+export function addMatchColumns(
+  originalData: CSVRow[],
+  columnName: string,
+  matches: Map<string, DrugMatch>
+): NormalizedRow[] {
+  return originalData.map((row) => {
+    const drugName = String(row[columnName] || '').trim();
+    const match = matches.get(drugName);
+    const ingredients = match?.ingredients.map((i) => i.name).join(' / ');
+    return {
+      ...row,
+      [GENERIC_NAME_COLUMN]: ingredients || (match?.matchType === 'supply' ? 'SUPPLY' : 'NOT_FOUND'),
+      RXCUI: match?.rxcui ?? '',
+      MATCH_TYPE: match?.matchType ?? 'not_found',
     } as NormalizedRow;
   });
 }

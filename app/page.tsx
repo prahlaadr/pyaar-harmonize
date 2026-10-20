@@ -9,7 +9,8 @@ type Tool = {
 };
 
 // Tiles map to the Tuva Project's vocabulary-normalization + data-quality
-// surface. Drug names (RxNorm) is live; the rest trace Tuva's code systems.
+// surface. Drug names (RxNorm) and drug classes (ATC) are live; the rest trace
+// Tuva's code systems.
 const TOOLS: Tool[] = [
   {
     name: "Drug Name Normalization",
@@ -17,6 +18,14 @@ const TOOLS: Tool[] = [
     blurb:
       "Map brand names, abbreviations, and misspellings to a single generic ingredient and RxCUI. Upload a CSV, get a standardized column back.",
     href: "/drug-names",
+    status: "live",
+  },
+  {
+    name: "Drug Class Rollup",
+    standard: "RxNorm → ATC",
+    blurb:
+      "Roll drug names up to WHO ATC classes. Streams files of any size, like CMS Part D prescriber extracts, and returns a crosswalk with RxCUI, ingredients and ATC levels 1 to 4.",
+    href: "/drug-classes",
     status: "live",
   },
   {
@@ -153,7 +162,7 @@ export default function Home() {
           The harmonizers
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-secondary md:text-base">
-          One tool per vocabulary. Drug names is live now, the rest are on the way.
+          One tool per vocabulary. Drug names and drug classes are live now, the rest are on the way.
         </p>
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TOOLS.map((tool) => {
